@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" name="select" id="select" />
+  <div id="result"></div>
+
+  <script>
+    // File APIに対応しているか確認
+    if (window.File) {
+      var result = document.getElementById('result');
+      var select = document.getElementById('select');
+
+      // ファイルが選択されたとき
+      select.addEventListener('change', function (e) {
+        // 選択されたファイルの情報を取得
+        var fileData = e.target.files[0];
+
+        var reader = new FileReader();
+        reader.onerror = function () {
+          alert('ファイル読み取りに失敗しました')
+        }
+        reader.onload = function () {
+          // 行単位で配列にする
+          var csvline = reader.result.split('\n');
+          console.log(csvline);
+        }
+        // ファイル読み取りを実行
+        reader.readAsText(fileData, 'Shift_JIS');
+      }, false);
+    }
+  </script>
+
+</body>
+</html>

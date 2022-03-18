@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+XMLHttpRequestを用いた非同期通信（APIのデータ取得）
+</p>
+
+  <form>
+    <input type="button" value="データの取得" onClick="getData()">
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function getData() {
+      let request = new XMLHttpRequest();
+
+      request.onreadystatechange = function () {
+        if (request.readyState == 4) {
+          if (request.status == 200) {
+            let node = document.getElementById("result");
+            node.innerHTML = request.responseText;
+          }
+        }
+      }
+
+      request.open('GET', 'https://www.googleapis.com/books/v1/volumes?q=JavaScript', true);
+      request.send(null); //データを送る場合
+    }
+  </script>
+
+</body>
+</html>
